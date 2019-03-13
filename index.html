@@ -148,6 +148,152 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-简述Wxss的rpx-转" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/简述Wxss的rpx-转/">简述Wxss的rpx(转)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/简述Wxss的rpx-转/" class="archive-article-date">
+  	<time datetime="2019-03-13T16:21:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="WXSS"><a href="#WXSS" class="headerlink" title="WXSS"></a>WXSS</h1><p>WXSS(WeiXin Style Sheets)是一套样式语言，用于描述 WXML 的组件样式。</p>
+<p>WXSS 用来决定 WXML 的组件应该怎么显示。</p>
+<p>为了适应广大的前端开发者，WXSS 具有 CSS 大部分特性。同时为了更适合开发微信小程序，WXSS 对 CSS 进行了扩充以及修改。</p>
+<p>与 CSS 相比，WXSS 扩展的特性有：</p>
+<ul>
+<li>尺寸单位</li>
+<li>样式导入</li>
+</ul>
+<h3 id="尺寸单位"><a href="#尺寸单位" class="headerlink" title="尺寸单位"></a>尺寸单位</h3><ul>
+<li>rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</li>
+</ul>
+<p>设备</p>
+<p>rpx换算px (屏幕宽度/750)</p>
+<p>px换算rpx (750/屏幕宽度)</p>
+<p>iPhone5</p>
+<p>1rpx = 0.42px</p>
+<p>1px = 2.34rpx</p>
+<p>iPhone6</p>
+<p>1rpx = 0.5px</p>
+<p>1px = 2rpx</p>
+<p>iPhone6 Plus</p>
+<p>1rpx = 0.552px</p>
+<p>1px = 1.81rpx</p>
+<p><strong>建议：</strong> 开发微信小程序时设计师可以用 iPhone6 作为视觉稿的标准。</p>
+<p><strong>注意：</strong> 在较小的屏幕上不可避免的会有一些毛刺，请在开发时尽量避免这种情况。</p>
+<h3 id="样式导入"><a href="#样式导入" class="headerlink" title="样式导入"></a>样式导入</h3><p>使用<code>@import</code>语句可以导入外联样式表，<code>@import</code>后跟需要导入的外联样式表的相对路径，用<code>;</code>表示语句结束。</p>
+<p><strong>示例代码：</strong></p>
+<pre><code>/** common.wxss **/
+.small-p {
+  padding:5px;
+}
+
+
+/** app.wxss **/
+@import &quot;common.wxss&quot;;
+.middle-p {
+  padding:15px;
+}
+</code></pre><h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>框架组件上支持使用 style、class 属性来控制组件的样式。</p>
+<ul>
+<li><p>style：静态的样式统一写到 class 中。style 接收动态的样式，在运行时会进行解析，请尽量避免将静态的样式写进 style 中，以免影响渲染速度。</p>
+<view style="color:;">
+
+
+</view></li>
+</ul>
+<ul>
+<li><p>class：用于指定样式规则，其属性值是样式规则中类选择器名(样式类名)的集合，样式类名不需要带上<code>.</code>，样式类名之间用空格分隔。</p>
+<view class="normal_view">
+
+
+</view></li>
+</ul>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>目前支持的选择器有：</p>
+<p>选择器</p>
+<p>样例</p>
+<p>样例描述</p>
+<p>.class</p>
+<p><code>.intro</code></p>
+<p>选择所有拥有 class=”intro” 的组件</p>
+<p>#id</p>
+<p><code>#firstname</code></p>
+<p>选择拥有 id=”firstname” 的组件</p>
+<p>element</p>
+<p><code>view</code></p>
+<p>选择所有 view 组件</p>
+<p>element, element</p>
+<p><code>view, checkbox</code></p>
+<p>选择所有文档的 view 组件和所有的 checkbox 组件</p>
+<p>::after</p>
+<p><code>view::after</code></p>
+<p>在 view 组件后边插入内容</p>
+<p>::before</p>
+<p><code>view::before</code></p>
+<p>在 view 组件前边插入内容</p>
+<h3 id="全局样式与局部样式"><a href="#全局样式与局部样式" class="headerlink" title="全局样式与局部样式"></a>全局样式与局部样式</h3><p>定义在 app.wxss 中的样式为全局样式，作用于每一个页面。在 page 的 wxss 文件中定义的样式为局部样式，只作用在对应的页面，并会覆盖 app.wxss 中相同的选择器。</p>
+<h1 id="个结果-“”"><a href="#个结果-“”" class="headerlink" title="个结果 “”"></a>个结果 “”</h1><h1 id="没有找到相关内容-“”"><a href="#没有找到相关内容-“”" class="headerlink" title="没有找到相关内容 “”"></a>没有找到相关内容 “”</h1><ul>
+<li><a href="https://www.tencent.com/" target="_blank" rel="noopener">关于腾讯</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/introduction/index.html" target="_blank" rel="noopener">文档中心</a></li>
+<li><a href="https://mp.weixin.qq.com/cgi-bin/opshowpage?action=dispelinfo" target="_blank" rel="noopener">辟谣中心</a></li>
+<li><a href="https://kf.qq.com/product/wx_xcx.html" target="_blank" rel="noopener">客服中心</a></li>
+<li>Copyright © 2012-2019 Tencent. All Rights Reserved.</li>
+</ul>
+<p><a href="./wxml/"></a><a href="./component.html"></a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/14/简述Wxss的rpx-转/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-how-to-use-Markdown" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
